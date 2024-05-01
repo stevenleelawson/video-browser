@@ -10,7 +10,8 @@ export default {
 	name: 'SearchBar',
 	methods: {
     onInput: function(e) {
-      console.log(e.target.value);
+	// 			('nameOftheEventtobeEmitted', value)
+      this.$emit('termChange', e.target.value)
     }
   }
 };

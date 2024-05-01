@@ -1,5 +1,5 @@
 # video-browser
-
+Searches for youtube videos using youTube api
 ## Project setup
 ```
 npm install

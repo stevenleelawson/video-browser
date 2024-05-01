@@ -6,7 +6,9 @@
 
 <script>
 import SearchBar from './components/SearchBar.vue';
-const API_KEY = 'AIzaSyDjn1izn3Td1YVuyuCwX13JwNn8e6cPvoE';
+import axios from 'axios';
+
+const API_KEY = process.env.VUE_APP_GOOGLE_API_KEY;
 
 export default {
   // providing name prop helps with debuggging
@@ -23,6 +25,15 @@ export default {
     // SAME AS onTermChange: function() {}
     onTermChange(searchTerm) {
       this.term = searchTerm;
+      
+      axios.get('https://www.googleapis.com/youtube/v3/search', {
+        params: {
+          key: API_KEY,
+          type: 'video',
+          part: 'snippet',
+          q: this.term
+        }
+      }).then(res => console.log(res))
     }
   }
 };

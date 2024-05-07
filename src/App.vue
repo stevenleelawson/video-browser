@@ -1,12 +1,14 @@
 <template>
   <div id="app">
    <SearchBar v-on:termChange="onTermChange"/>
+   <VideoList :videos="videos"/>
   </div>
 </template>
 
 <script>
-import SearchBar from './components/SearchBar.vue';
 import axios from 'axios';
+import SearchBar from './components/SearchBar.vue';
+import VideoList from './components/VideoList.vue';
 
 const API_KEY = process.env.VUE_APP_GOOGLE_API_KEY;
 
@@ -14,11 +16,13 @@ export default {
   // providing name prop helps with debuggging
   name: 'App',
   components: {
-    SearchBar
+    SearchBar,
+    VideoList,
   },
   data() {
     return {
-      term: ''
+      term: '',
+      videos: []
     }
   },
   methods: {
@@ -33,7 +37,9 @@ export default {
           part: 'snippet',
           q: this.term
         }
-      }).then(res => console.log(res))
+      }).then(res => {
+        this.videos = res.data.items
+      })
     }
   }
 };
